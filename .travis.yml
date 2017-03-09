@@ -16,7 +16,7 @@ install:
   - docker build -t teameinhorn/sandbox:build$TRAVIS_BUILD_NUMBER .
 
 before_script:
-  - docker run -p 8080:8080 -d sandbox
+  - docker run -p 8080:8080 -d teameinhorn/sandbox
   
 script:
   - ./gradlew check
