@@ -18,14 +18,17 @@ install:
   - docker images
 
 before_script:
-  - docker run -p 8080:8080 -d teameinhorn/sandbox
+  - docker run -p 8080:8080 -d --name sandbox_instance teameinhorn/sandbox
   
 script:
   - ./gradlew check
-  - docker ps -a | grep sandbox
+  - docker ps | grep sandbox
+  - docker top sandbox_instance | grep java
+  - wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP"\
   
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker push teameinhorn/sandbox
+  
 after_script:
 
