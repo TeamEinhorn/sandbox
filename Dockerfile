@@ -8,6 +8,6 @@ EXPOSE 8080
 
 COPY build/libs/$VERTX_FILE $VERTX_HOME/
 
-WORKDIR $VERTX_HOME
-ENTRYPOINT ["sh", "-c"]
-CMD ["exec java -jar $VERTICLE_FILE"]
+HEALTHCHECK CMD curl -f http://localhost:8080/status || exit 1 
+
+CMD ["java", "-jar", "$VERTX_HOME/$VERTX_FILE"]
