@@ -10,14 +10,15 @@ services:
   
 before_install:
   - chmod +x gradlew
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "snapshot"; else echo $TRAVIS_BRANCH ; fi`
 
 install:
   - ./gradlew shadowJar
-  - docker build -t teameinhorn/sandbox:snapshot .
+  - docker build -t teameinhorn/sandbox:$TAG .
   - docker images
 
 before_script:
-  - docker run -p 8080:8080 -d --name sandbox_instance teameinhorn/sandbox:snapshot
+  - docker run -p 8080:8080 -d --name sandbox_instance teameinhorn/sandbox:$TAG
   
 script:
   - ./gradlew check
@@ -27,7 +28,7 @@ script:
   
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-  - docker push teameinhorn/sandbox:snapshot
+  - docker push teameinhorn/sandbox:$TAG
   
 after_script:
 
