@@ -9,18 +9,18 @@ services:
   
   
 before_install:
-  - echo "----- BEFORE_INSTALL -----"
+  - echo "-------------------- BEFORE_INSTALL --------------------"
   - chmod +x gradlew
 
 install:
-  - echo "----- INSTALL -----"
-  - ./gradlew assemble
+  - echo "-------------------- INSTALL --------------------"
+  - ./gradlew shadowJar
   - ls ./build/libs
   - docker build -t sandbox .
 
 before_script:
-  - echo "----- BEFORE_SCRIPT -----"
+  - echo "-------------------- BEFORE_SCRIPT --------------------"
 
 script:
-  - echo "----- SCRIPT -----"
+  - echo "-------------------- SCRIPT --------------------"
   - ./gradlew check
