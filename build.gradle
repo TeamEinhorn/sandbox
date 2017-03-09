@@ -1,6 +1,7 @@
 plugins{
 	id 'application'
-	id 'com.github.johnrengelman.shadow' version '1.2.3'
+	id 'com.github.johnrengelman.shadow' version '1.2.4'
+	id 'ch.netzwerg.release' version '1.2.4'
 }
 
 mainClassName = 'io.vertx.core.Launcher'
@@ -20,13 +21,22 @@ dependencies {
 }
 
 shadowJar {
-  classifier = 'fat'
+  classifier = 'app'
+ 
   manifest {
       attributes "Main-Verticle": "de.teameinhorn.sandbox.MainVerticle"
   }
+  
   mergeServiceFiles {
     include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
   }
+}
+
+release {
+  dependsOn shadowJar
+  push = false
+  versionSuffix = '-snapshot'
+  tagPrefix = ''
 }
 
 run {
