@@ -4,6 +4,6 @@ EXPOSE 8080
 
 COPY build/libs/sandbox-fat.jar /usr/verticles/
 
-HEALTHCHECK CMD curl -f http://localhost:8080/status || exit 1 
+HEALTHCHECK CMD wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP\"
 
 CMD ["java", "-jar", "/usr/verticles/sandbox-fat.jar"]
