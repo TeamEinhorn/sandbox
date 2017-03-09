@@ -24,7 +24,7 @@ script:
   - ./gradlew check
   - docker ps | grep sandbox
   - docker top sandbox_instance | grep java
-  - wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP"\
+  - wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP\"
   
 after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
