@@ -13,18 +13,19 @@ before_install:
 
 install:
   - ./gradlew shadowJar
-  - docker build -t sandbox .
+  - docker build -t teameinhorn/sandbox:build$TRAVIS_BUILD_NUMBER .
 
 before_script:
-  - docker run -p 127.0.0.1:10080:8080 -d --name sandbox sandbox
+  - docker run -p 8080:8080 -d sandbox
   
 script:
   - ./gradlew check
-  - docker ps | grep -q sandbox
-  - wget http://127.0.0.1:10080 | grep Hello
+  - docker ps -a | grep sandbox
   
 after_success:
-  - echo "Upload to docker hub"
-  
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker tag teameinhorn/sandbox:build$TRAVIS_BUILD_NUMBER teameinhorn/sandbox:latest
+  - docker images
+  - docker push teameinhorn/sandbox
 after_script:
 
