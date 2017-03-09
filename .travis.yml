@@ -21,3 +21,7 @@ before_script:
 script:
   - ./gradlew check
   - docker ps -a | grep sandbox
+  - wget http://localhost:8080 | grep Hello
+  
+after_success:
+  - echo "Upload to docker hub"
