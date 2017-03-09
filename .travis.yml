@@ -16,12 +16,15 @@ install:
   - docker build -t sandbox .
 
 before_script:
-  - docker run -d -p 8080:8080 sandbox
+  - docker run -p 127.0.0.1:10080:8080 -d --name sandbox sandbox
   
 script:
   - ./gradlew check
-  - docker ps -a | grep sandbox
-  - wget http://localhost:8080 | grep Hello
+  - docker ps | grep -q sandbox
+  - wget http://127.0.0.1:10080 | grep Hello
   
 after_success:
   - echo "Upload to docker hub"
+  
+after_script:
+
