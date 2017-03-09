@@ -9,8 +9,14 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	vertx = '3.4.0'
+}
+
 dependencies {
-	compile "io.vertx:vertx-core:3.4.0"
+	compile "io.vertx:vertx-core:$vertx"
+	compile	"io.vertx:vertx-web:$vertx"
+	compile	"io.vertx:vertx-health-check:$vertx"
 }
 
 shadowJar {
