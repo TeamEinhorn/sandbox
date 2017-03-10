@@ -26,6 +26,10 @@ dependencies {
 	compile "io.vertx:vertx-core:$vertx"
 	compile	"io.vertx:vertx-web:$vertx"
 	compile	"io.vertx:vertx-health-check:$vertx"
+	
+	testCompile "junit:junit:4.12"
+	testCompile "io.vertx:vertx-unit:$vertx"
+	
 }
 
 shadowJar {
