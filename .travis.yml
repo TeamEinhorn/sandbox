@@ -16,7 +16,7 @@ before_install:
 
 install:
   - ./gradlew shadowJar
-  - docker build --build-arg app_version=$APP_VERSION -t teameinhorn/sandbox:$TAG . 
+  - docker build --build-arg APP_VERSION=$APP_VERSION -t teameinhorn/sandbox:$TAG . 
   - docker images
   - docker inspect teameinhorn/sandbox:$TAG
 
