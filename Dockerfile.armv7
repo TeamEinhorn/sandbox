@@ -1,0 +1,20 @@
+FROM afritzler/openjre8-alpine-arm
+
+ARG APP_VERSION
+
+ENV APP_VERSION $APP_VERSION
+ENV APP_NAME sandbox
+ENV APP_FILE $APP_NAME-$APP_VERSION-app.jar
+ENV APP_PATH /usr/app/$APP_NAME
+
+LABEL app.version=$APP_VERSION
+LABEL app.maintainer=TeamEinhorn
+LABEL app.source=https://github.com/teameinhorn/sandbox/
+
+EXPOSE 8080
+
+COPY build/libs/$APP_FILE $APP_PATH/
+
+HEALTHCHECK CMD wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP\"
+
+CMD java -jar $APP_PATH/$APP_FILE

@@ -16,9 +16,9 @@ before_install:
 
 install:
   - ./gradlew shadowJar
-  - docker build --build-arg APP_VERSION=$APP_VERSION -t teameinhorn/sandbox:$TAG . 
+  - docker build -f ./Dockerfile.x86 --build-arg APP_VERSION=$APP_VERSION -t teameinhorn/sandbox:$TAG . 
+  - docker build -f ./Dockerfile.armv7 --build-arg APP_VERSION=$APP_VERSION -t teameinhorn/sandbox:$TAG-armv7 . 
   - docker images
-  - docker inspect teameinhorn/sandbox:$TAG
 
 before_script:
   - docker run -p 8080:8080 -d --name sandbox_instance teameinhorn/sandbox:$TAG
@@ -33,7 +33,5 @@ after_success:
   - ./gradlew jacocoTestReport coveralls  
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker push teameinhorn/sandbox:$TAG
-
- 
-after_script:
+  - docker push teameinhorn/sandbox:$TAG-armv7
 
