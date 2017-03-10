@@ -12,4 +12,4 @@ COPY build/libs/sandbox-${app_version}-app.jar /usr/app/
 
 HEALTHCHECK CMD wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP\"
 
-CMD ["java", "-jar", "/usr/app/sandbox-${app_version}-app.jar"]
+CMD java -jar /usr/app/sandbox-${app_version}-app.jar
