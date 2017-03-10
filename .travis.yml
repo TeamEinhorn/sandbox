@@ -27,6 +27,7 @@ script:
   - wget -qO- http://localhost:8080/status | grep \"outcome\":\"UP\"
   
 after_success:
+  - ./gradlew cobertura coveralls  
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker push teameinhorn/sandbox:$TAG
   
