@@ -33,6 +33,7 @@ after_success:
   - ./gradlew jacocoTestReport coveralls  
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   - docker push teameinhorn/sandbox:$TAG
-  
+
+ 
 after_script:
 

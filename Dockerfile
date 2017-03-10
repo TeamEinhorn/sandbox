@@ -1,6 +1,7 @@
 FROM openjdk:8-jre-alpine
 
 ARG APP_VERSION
+ENV APP_VERSION $APP_VERSION
 
 LABEL version=$APP_VERSION
 LABEL maintainer=TeamEinhorn
