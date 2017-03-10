@@ -11,10 +11,11 @@ services:
 before_install:
   - chmod +x gradlew
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "snapshot"; else echo $TRAVIS_BRANCH ; fi`
+  - export APP_VERSION=$(./gradlew -q version)
 
 install:
   - ./gradlew shadowJar
-  - docker build -t teameinhorn/sandbox:$TAG .
+  - docker build --build-arg app_version=$APP_VERSION -t teameinhorn/sandbox:$TAG . 
   - docker images
 
 before_script:

@@ -54,6 +54,12 @@ run {
   args = ['run', "de.teameinhorn.sandbox.MainVerticle", "--launcher-class=$mainClassName"]
 }
 
+task version {
+	doLast {
+		print version
+	}
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1'
 }
